@@ -12,6 +12,7 @@ import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import androidx.core.graphics.toColorInt
+import com.charan.themeify.BuildConfig
 
 class DynamicThemeViewModel : ViewModel() {
 
@@ -20,9 +21,8 @@ class DynamicThemeViewModel : ViewModel() {
     private val generativeModel by lazy {
         GenerativeModel(
             modelName = "gemini-1.5-flash",
-            apiKey = ""
+            apiKey = BuildConfig.GEMINI_API_KEY
         )
-
     }
 
     fun processUserInput(userQuery: String) {
