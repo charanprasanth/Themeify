@@ -1,11 +1,11 @@
 package com.charan.themeify.presentation.feature_dynamic_theme
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,11 +17,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,18 +32,39 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.charan.themeify.presentation.common.SuggestionCycle
+import kotlinx.coroutines.delay
 
 @Composable
 fun DynamicThemeDialog(
     viewModel: DynamicThemeViewModel = viewModel(),
     showDialog: Boolean,
-    onDismiss: () -> Unit,
+    onDismiss: () -> Unit
 ) {
+    val suggestions = listOf(
+        "Change the app color to Red",
+        "Switch the app to Dark Mode",
+        "Change the text color to Green"
+    )
+
+    val context = LocalContext.current
+
+    val errorMessage = viewModel.isLoadingAndError.second
+
+    LaunchedEffect(errorMessage) {
+        if (errorMessage.isNotEmpty()) {
+            delay(100)
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     var prompt by remember { mutableStateOf(TextFieldValue("")) }
+
     if (showDialog) {
         AnimatedVisibility(
             visible = true,
@@ -81,6 +105,12 @@ fun DynamicThemeDialog(
                             .fillMaxWidth()
                             .height(100.dp)
                     )
+                    SuggestionCycle(
+                        suggestions = suggestions,
+                        onSuggestionSelected = { suggestion ->
+                            prompt = TextFieldValue(suggestion)
+                        }
+                    )
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -88,43 +118,44 @@ fun DynamicThemeDialog(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Button(
-                            onClick = {
-                                viewModel.processUserInput(prompt.text)
-                            },
-                            enabled = prompt.text.isNotEmpty(),
-                            colors = ButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primary,
-                                contentColor = MaterialTheme.colorScheme.onPrimary,
-                                disabledContainerColor = MaterialTheme.colorScheme.primary.copy(
-                                    alpha = 0.5f
-                                ),
-                                disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(
-                                    alpha = 0.5f
-                                ),
-                            )
+                        if (viewModel.isLoadingAndError.first) {
+                            CircularProgressIndicator(modifier = Modifier.height(25.dp))
+                        } else {
+                            Button(
+                                onClick = {
+                                    viewModel.processUserInput(prompt.text)
+                                },
+                                enabled = prompt.text.isNotEmpty(),
+                                colors = ButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,
+                                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(
+                                        alpha = 0.5f
+                                    ),
+                                    disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(
+                                        alpha = 0.5f
+                                    ),
+                                )
+                            ) {
+                                Text(
+                                    "Customise",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                        }
+                        TextButton(
+                            onClick = onDismiss,
                         ) {
                             Text(
-                                "Customise",
-                                style = MaterialTheme.typography.bodyMedium
+                                "Close",
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    fontWeight = FontWeight.SemiBold
+                                ),
                             )
                         }
-                        Text(
-                            "Close",
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.clickable(
-                                onClick = onDismiss
-                            )
-                        )
                     }
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun ppp() {
-    DynamicThemeDialog(showDialog = true, onDismiss = {})
 }

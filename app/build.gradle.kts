@@ -71,8 +71,7 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
-//    implementation(platform(libs.firebase.bom))
-//    implementation(libs.firebase.ai)
+    implementation(libs.androidx.foundation)
     implementation(libs.generativeai)
 
     testImplementation(libs.junit)

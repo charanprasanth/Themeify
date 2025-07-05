@@ -17,6 +17,7 @@ import com.charan.themeify.BuildConfig
 class DynamicThemeViewModel : ViewModel() {
 
     var themeConfig by mutableStateOf(ThemeConfig())
+    var isLoadingAndError by mutableStateOf(Pair(false, ""))
 
     private val generativeModel by lazy {
         GenerativeModel(
@@ -26,6 +27,7 @@ class DynamicThemeViewModel : ViewModel() {
     }
 
     fun processUserInput(userQuery: String) {
+        isLoadingAndError = isLoadingAndError.copy(first = true, second = "")
         viewModelScope.launch {
             val aiResponse = getAiResponse(userQuery)
             parseAiResponse(aiResponse)
@@ -53,6 +55,7 @@ class DynamicThemeViewModel : ViewModel() {
     }
 
     private fun parseAiResponse(aiResponse: String) {
+        isLoadingAndError = isLoadingAndError.copy(first = false, second = "")
         try {
             val unescaped = JSONObject("""{"data": $aiResponse}""").getString("data")
 
@@ -91,9 +94,16 @@ class DynamicThemeViewModel : ViewModel() {
                     Log.d("RES", "parseAiResponse: themeMode: $themeMode")
                     toggleDarkMode(isDarkMode = themeMode == "dark")
                 }
+
+                else -> {
+                    isLoadingAndError = isLoadingAndError.copy(
+                        first = false,
+                        second = "Invalid Response"
+                    )
+                }
             }
         } catch (_: Exception) {
-            Log.e("ParsingError", "Invalid JSON from Gemini")
+            isLoadingAndError = isLoadingAndError.copy(first = false, second = "Invalid Response")
         }
     }
 
