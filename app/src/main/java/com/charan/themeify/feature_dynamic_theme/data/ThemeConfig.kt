@@ -1,4 +1,4 @@
-package com.charan.themeify.data
+package com.charan.themeify.feature_dynamic_theme.data
 
 import androidx.compose.ui.graphics.Color
 

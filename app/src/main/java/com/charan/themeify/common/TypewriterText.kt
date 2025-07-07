@@ -1,4 +1,4 @@
-package com.charan.themeify.presentation.common
+package com.charan.themeify.common
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

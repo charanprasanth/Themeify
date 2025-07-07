@@ -15,9 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.charan.themeify.presentation.feature_dynamic_theme.DynamicThemeDialog
-import com.charan.themeify.presentation.feature_dynamic_theme.DynamicThemeViewModel
-import com.charan.themeify.presentation.feature_home.HomeScreen
+import com.charan.themeify.feature_dashboard.DashboardScreen
+import com.charan.themeify.feature_dynamic_theme.presentation.DynamicThemeDialog
+import com.charan.themeify.feature_dynamic_theme.presentation.DynamicThemeViewModel
+import com.charan.themeify.feature_home.HomeScreen
 import com.charan.themeify.services.ShakeDetector
 import com.charan.themeify.ui.theme.DynamicTheme
 import com.charan.themeify.ui.theme.ThemeifyTheme
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
-                HomeScreen()
+                DashboardScreen()
 
                 if (showDialog) {
                     DynamicThemeDialog(

@@ -1,4 +1,4 @@
-package com.charan.themeify.presentation.feature_home
+package com.charan.themeify.feature_home
 
 import androidx.lifecycle.ViewModel
 

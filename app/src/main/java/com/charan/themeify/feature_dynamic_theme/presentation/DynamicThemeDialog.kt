@@ -1,4 +1,4 @@
-package com.charan.themeify.presentation.feature_dynamic_theme
+package com.charan.themeify.feature_dynamic_theme.presentation
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -37,7 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.charan.themeify.presentation.common.SuggestionCycle
+import com.charan.themeify.common.SuggestionCycle
 import kotlinx.coroutines.delay
 
 @Composable

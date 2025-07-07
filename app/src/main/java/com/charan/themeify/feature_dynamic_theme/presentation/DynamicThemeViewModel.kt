@@ -1,4 +1,4 @@
-package com.charan.themeify.presentation.feature_dynamic_theme
+package com.charan.themeify.feature_dynamic_theme.presentation
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.charan.themeify.data.ThemeConfig
+import com.charan.themeify.feature_dynamic_theme.data.ThemeConfig
 import com.google.ai.client.generativeai.GenerativeModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject

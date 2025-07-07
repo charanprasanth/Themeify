@@ -5,7 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import com.charan.themeify.data.ThemeConfig
+import com.charan.themeify.feature_dynamic_theme.data.ThemeConfig
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -17,16 +17,6 @@ private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
 )
 
 @Composable
@@ -61,14 +51,18 @@ fun DynamicTheme(
             primary = themeConfig.primaryColor,
             onBackground = themeConfig.textColor,
             onSurface = themeConfig.textColor,
-            background = themeConfig.backgroundColor
+            background = themeConfig.backgroundColor,
+            secondaryContainer = themeConfig.primaryColor.copy(alpha = 0.1f),
+            surfaceContainer = themeConfig.primaryColor.copy(alpha = 0.05f),
         )
     } else {
         lightColorScheme(
             primary = themeConfig.primaryColor,
             onBackground = themeConfig.textColor,
             onSurface = themeConfig.textColor,
-            background = themeConfig.backgroundColor
+            background = themeConfig.backgroundColor,
+            secondaryContainer = themeConfig.primaryColor.copy(alpha = 0.1f),
+            surfaceContainer = themeConfig.primaryColor.copy(alpha = 0.05f),
         )
     }
 
