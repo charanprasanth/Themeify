@@ -8,8 +8,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.charan.themeify.common.TopBar
@@ -36,8 +38,17 @@ fun CategoriesScreen() {
         }
     ) { padding ->
         LazyColumn(
-            modifier = Modifier.padding(padding).padding(top = 10.dp)
+            modifier = Modifier.padding(padding)
         ) {
+            item {
+                Text(
+                    text = "This Month",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Medium
+                    ),
+                    modifier = Modifier.padding(15.dp)
+                )
+            }
             items(100) {
                 CategoryItem()
             }

@@ -72,7 +72,12 @@ fun HomeScreen() {
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Medium
                     ),
-                    modifier = Modifier.padding(bottom = 25.dp, top = 20.dp)
+                    modifier = Modifier.padding(
+                        bottom = 25.dp,
+                        top = 20.dp,
+                        start = 15.dp,
+                        end = 15.dp
+                    )
                 )
             }
             items(100) {
