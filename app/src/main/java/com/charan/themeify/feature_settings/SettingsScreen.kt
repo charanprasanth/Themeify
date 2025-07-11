@@ -19,8 +19,6 @@ fun SettingsScreen() {
         Column(
             modifier = Modifier.padding(
                 top = paddingValues.calculateTopPadding() + 20.dp,
-                start = 15.dp,
-                end = 15.dp
             )
         ) {
             SettingsItem(

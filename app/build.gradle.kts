@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.foundation)
     implementation(libs.generativeai)
+    implementation (libs.compose.charts)
 
     testImplementation(libs.junit)
 

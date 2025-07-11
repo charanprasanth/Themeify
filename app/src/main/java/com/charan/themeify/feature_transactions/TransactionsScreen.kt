@@ -90,7 +90,7 @@ fun Filters() {
         )
         FilterChip(
             selected = true,
-            onClick = {3 },
+            onClick = { },
             label = {
                 Text("This Month")
             }
